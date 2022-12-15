@@ -45,3 +45,9 @@ build/
 
 #vscode related
 .vscode
+
+# exr images
+*.exr
+
+# xmake
+.xmake
