@@ -13,10 +13,6 @@ else
     set_toolchains("clang")
 end
 
-target("Embree")
-    set_kind("phony")
-    add_includedirs("embree/include", {public = true})
-
 target("3rdparty")
     set_kind("static")
     add_includedirs("src", {public = true})
@@ -28,14 +24,17 @@ target("lajolla")
     set_kind("binary")
     add_files("src/*.cpp")
 
-    if is_plat("windows") then
-        add_defines("_WINDOWS")
-    end
-    add_deps("Embree", "3rdparty")
+    add_includedirs("embree/include")
+    add_deps("3rdparty")
 
     if is_plat("windows") then
-        add_linkdirs("embree/bin", "embree/lib-win32")
-        add_links("embree3", "tbb")
+        add_defines("_WINDOWS")
+        add_linkdirs("embree/bin")
+        add_links("embree/lib-win32/*")
+    elseif is_plat("linux") then
+        add_links("embree/lib-linux/*")
+    elseif is_plat("macosx") then
+        add_links("embree/lib-macos/*")
     end
 
     set_rundir("$(projectdir)")
