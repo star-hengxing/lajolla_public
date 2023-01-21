@@ -2,16 +2,16 @@
 UCSD CSE 272 renderer
 
 # Build
-All the dependencies are included. Use XMake to build.
-If you are on Unix systems, try
-```
+All the dependencies are included. Use XMake to build, try
+```sh
 xmake
 ```
 
 # Run
 Try 
-```
-xmake run lajolla scenes/cbox/cbox.xml
+```sh
+xmake run
+# xmake run lajolla scenes/cbox/cbox.xml
 ```
 This will generate an image "image.exr".
 
