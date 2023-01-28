@@ -26,9 +26,11 @@ package("embree")
             result.linkdirs = package:installdir("lib-win32")
             package:addenv("PATH", package:installdir("bin"))
         elseif is_plat("linux") then
-            package:addenv("PATH", package:installdir("lib-linux"))
+            package:addenv("LD_LIBRARY_PATH", package:installdir("lib-linux"))
+            result.linkdirs = package:installdir("lib-linux")
         elseif is_plat("macosx") then
-            package:addenv("PATH", package:installdir("lib-macos"))
+            package:addenv("LD_LIBRARY_PATH", package:installdir("lib-macos"))
+            result.linkdirs = package:installdir("lib-macos")
         end
 
         result.links = {"embree3", "tbb"}
