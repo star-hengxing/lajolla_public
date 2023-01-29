@@ -21,16 +21,19 @@ package("embree")
 
     on_fetch(function (package)
         local result = {}
-        if is_plat("windows") then
+        if is_host("windows") then
             package:add("syslinks", "advapi32")
             result.linkdirs = package:installdir("lib-win32")
             package:addenv("PATH", package:installdir("bin"))
-        elseif is_plat("linux") then
+        elseif is_host("linux") then
             package:addenv("LD_LIBRARY_PATH", package:installdir("lib-linux"))
             result.linkdirs = package:installdir("lib-linux")
-        elseif is_plat("macosx") then
-            package:addenv("LD_LIBRARY_PATH", package:installdir("lib-macos"))
+        elseif is_host("macosx") then
+            package:addenv("DYLD_LIBRARY_PATH", package:installdir("lib-macos"))
             result.linkdirs = package:installdir("lib-macos")
+        else
+            package:addenv("LD_LIBRARY_PATH", package:installdir("lib-linux"))
+            result.linkdirs = package:installdir("lib-linux")
         end
 
         result.links = {"embree3", "tbb"}
